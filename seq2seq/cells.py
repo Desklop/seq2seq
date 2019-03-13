@@ -45,6 +45,15 @@ class LSTMDecoderCell(ExtendedRNNCell):
         y = Activation(self.activation)(W2(h))
 
         return Model([x, h_tm1, c_tm1], [y, h, c])
+    
+    
+    def get_config(self):
+        config = {
+                'hidden_dim' : self.hidden_dim
+            }
+        base_config = super(LSTMDecoderCell, self).get_config()
+        config.update(base_config)
+        return config
 
 
 class AttentionDecoderCell(ExtendedRNNCell):
@@ -105,3 +114,13 @@ class AttentionDecoderCell(ExtendedRNNCell):
         y = Activation(self.activation)(W2(h))
 
         return Model([x, h_tm1, c_tm1], [y, h, c])
+    
+    
+    def get_config(self):
+        config = {
+                'hidden_dim' : self.hidden_dim,
+                'output_dim' : self.output_dim
+            }
+        base_config = super(AttentionDecoderCell, self).get_config()
+        config.update(base_config)
+        return config
